@@ -1,0 +1,7 @@
+services:
+  - type: web
+    name: nexus-registration-portal
+    env: static
+    buildCommand: ""
+    staticPublishPath: ./
+    pullRequestPreviewsEnabled: true

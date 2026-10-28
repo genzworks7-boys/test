@@ -1,0 +1,567 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Global Innovation Portal | Secure Registration</title>
+  <meta name="description" content="Secure, responsive event and department registration portal with real-time Google Sheets backend synchronization via Google Apps Script.">
+  <meta name="theme-color" content="#1d4ed8">
+
+  <!-- Favicon SVG -->
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%232563eb'%3E%3Cpath d='M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5'/%3E%3C/svg%3E">
+
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+  <!-- Confetti Canvas for Celebration -->
+  <canvas id="confettiCanvas"></canvas>
+
+  <!-- Top Security Announcement Bar -->
+  <aside class="announcement-bar" role="region" aria-label="Security Notice">
+    <span class="announcement-badge">Verified System</span>
+    <span>🔒 256-Bit Encrypted Portal • Connected to Secure Google Sheets Cloud Datastore</span>
+  </aside>
+
+  <!-- Sticky Header Navigation -->
+  <header class="site-header">
+    <div class="header-container">
+      <a href="#hero" class="brand-wrapper" aria-label="Portal Home">
+        <div class="brand-icon-box" aria-hidden="true">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 2L2 7l10 5 10-5-10-5z"></path>
+            <path d="M2 17l10 5 10-5"></path>
+            <path d="M2 12l10 5 10-5"></path>
+          </svg>
+        </div>
+        <div class="brand-text-box">
+          <span class="brand-title">Nexus<span>Reg</span></span>
+          <span class="brand-subtitle">Global Registration Portal</span>
+        </div>
+      </a>
+
+      <div class="header-actions">
+        <!-- Live Status Pill -->
+        <div id="navStatusBadge" class="status-pill status-demo" title="Current backend connection status">
+          <span class="status-dot"></span> Demo Mode Active
+        </div>
+
+        <!-- Settings / API Config Button -->
+        <button id="openConfigBtn" class="btn-config" type="button" aria-label="Configure Google Apps Script endpoint">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <circle cx="12" cy="12" r="3"></circle>
+            <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+          </svg>
+          <span>API Config</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- Hero Introduction -->
+    <section id="hero" class="hero-section" aria-labelledby="heroTitle">
+      <div class="hero-pill">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+        </svg>
+        <span>Annual Innovation Summit 2026</span>
+      </div>
+
+      <h1 id="heroTitle" class="hero-title">
+        Official Attendee &amp; Department <span class="gradient-text">Registration Portal</span>
+      </h1>
+
+      <p class="hero-description">
+        Reserve your verified credentials. Submissions are authenticated, sanitized, and synchronously stored in our real-time Google Sheets database.
+      </p>
+
+      <div class="trust-badges" aria-label="Security and Platform Features">
+        <div class="trust-item">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+          </svg>
+          <span>Zero-Credential Frontend</span>
+        </div>
+        <div class="trust-item">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <polyline points="20 6 9 17 4 12"></polyline>
+          </svg>
+          <span>Instant Google Sheets Sync</span>
+        </div>
+        <div class="trust-item">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <circle cx="12" cy="12" r="10"></circle>
+            <line x1="12" y1="8" x2="12" y2="12"></line>
+            <line x1="12" y1="16" x2="12.01" y2="16"></line>
+          </svg>
+          <span>Formula Injection Guard</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Main Registration Container -->
+    <section class="registration-container" aria-label="Registration Form Section">
+
+      <!-- Form Card (Primary State) -->
+      <div id="formCard" class="main-card form-card">
+        <div class="card-header">
+          <h2 class="card-title">Attendee Information</h2>
+          <p class="card-subtitle">Please complete all required fields with accurate information.</p>
+        </div>
+
+        <!-- Dynamic Alert / Error Banner -->
+        <div id="alertBanner" class="alert-banner hidden" role="alert" aria-live="assertive">
+          <div class="alert-icon" aria-hidden="true">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="10"></circle>
+              <line x1="12" y1="8" x2="12" y2="12"></line>
+              <line x1="12" y1="16" x2="12.01" y2="16"></line>
+            </svg>
+          </div>
+          <div class="alert-content">
+            <div id="alertTitle" class="alert-title">Submission Error</div>
+            <div id="alertMessage" class="alert-message">Please correct the indicated errors.</div>
+            <div id="alertDiagnostics"></div>
+          </div>
+        </div>
+
+        <!-- The Custom Registration Form -->
+        <form id="registrationForm" novalidate>
+
+          <!-- Hidden Honeypot Field (Anti-Bot) -->
+          <div class="honeypot-field" aria-hidden="true">
+            <label for="website">Leave this field blank if you are human</label>
+            <input type="text" id="website" name="website" tabindex="-1" autocomplete="off">
+          </div>
+
+          <div class="form-grid">
+            <!-- Full Name -->
+            <div class="form-group">
+              <label for="name" class="form-label">
+                <span>Full Name <span class="required-mark" aria-hidden="true">*</span></span>
+              </label>
+              <div class="input-wrapper">
+                <input
+                  type="text"
+                  id="name"
+                  name="name"
+                  class="form-input"
+                  placeholder="e.g. Elena Rostova"
+                  autocomplete="name"
+                  maxlength="100"
+                  required
+                  aria-required="true"
+                  aria-describedby="nameError"
+                >
+                <div class="input-icon" aria-hidden="true">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                    <circle cx="12" cy="7" r="4"></circle>
+                  </svg>
+                </div>
+              </div>
+              <div id="nameError" class="field-error" role="alert"></div>
+            </div>
+
+            <!-- Email Address -->
+            <div class="form-group">
+              <label for="email" class="form-label">
+                <span>Email Address <span class="required-mark" aria-hidden="true">*</span></span>
+              </label>
+              <div class="input-wrapper">
+                <input
+                  type="email"
+                  id="email"
+                  name="email"
+                  class="form-input"
+                  placeholder="name@organization.com"
+                  autocomplete="email"
+                  maxlength="150"
+                  required
+                  aria-required="true"
+                  aria-describedby="emailError"
+                >
+                <div class="input-icon" aria-hidden="true">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                    <polyline points="22,6 12,13 2,6"></polyline>
+                  </svg>
+                </div>
+              </div>
+              <div id="emailError" class="field-error" role="alert"></div>
+            </div>
+
+            <!-- Phone Number -->
+            <div class="form-group">
+              <label for="phone" class="form-label">
+                <span>Phone Number <span class="required-mark" aria-hidden="true">*</span></span>
+              </label>
+              <div class="input-wrapper">
+                <input
+                  type="tel"
+                  id="phone"
+                  name="phone"
+                  class="form-input"
+                  placeholder="+1 (555) 234-5678"
+                  autocomplete="tel"
+                  maxlength="30"
+                  required
+                  aria-required="true"
+                  aria-describedby="phoneError"
+                >
+                <div class="input-icon" aria-hidden="true">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+                  </svg>
+                </div>
+              </div>
+              <div id="phoneError" class="field-error" role="alert"></div>
+            </div>
+
+            <!-- Department Selection -->
+            <div class="form-group">
+              <label for="department" class="form-label">
+                <span>Department <span class="required-mark" aria-hidden="true">*</span></span>
+              </label>
+              <div class="input-wrapper">
+                <select
+                  id="department"
+                  name="department"
+                  class="form-select"
+                  required
+                  aria-required="true"
+                  aria-describedby="departmentError"
+                >
+                  <option value="" disabled selected>Select an authorized department...</option>
+                </select>
+                <div class="input-icon" aria-hidden="true">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect>
+                    <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path>
+                  </svg>
+                </div>
+              </div>
+              <div id="departmentError" class="field-error" role="alert"></div>
+            </div>
+
+            <!-- Terms & Consent Checkbox -->
+            <div class="form-group">
+              <label class="checkbox-group">
+                <input type="checkbox" id="termsConsent" class="custom-checkbox" required>
+                <span class="checkbox-label">
+                  I agree to submit my registration details to the organization database and confirm that all submitted information is accurate.
+                </span>
+              </label>
+              <div id="termsError" class="field-error" role="alert"></div>
+            </div>
+
+            <!-- Submit Button with Loading Spinner -->
+            <button type="submit" id="submitBtn" class="submit-btn">
+              <div id="submitSpinner" class="spinner hidden" aria-hidden="true"></div>
+              <span id="submitBtnText">Complete Registration</span>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <line x1="5" y1="12" x2="19" y2="12"></line>
+                <polyline points="12 5 19 12 12 19"></polyline>
+              </svg>
+            </button>
+          </div>
+        </form>
+
+        <div class="form-security-note">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+            <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+          </svg>
+          <span>Direct Google Apps Script Integration • No Public Read Endpoint</span>
+        </div>
+      </div>
+
+      <!-- Success State Card (Shown After Verified Confirmation) -->
+      <div id="successCard" class="main-card success-card hidden" role="region" aria-labelledby="successTitle">
+        <div class="success-icon-wrapper" aria-hidden="true">
+          <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="20 6 9 17 4 12"></polyline>
+          </svg>
+        </div>
+
+        <h2 id="successTitle" class="success-title">Registration Confirmed!</h2>
+        <p class="success-subtitle">
+          Your credentials have been securely transmitted and verified in our Google Sheets registry.
+        </p>
+
+        <div id="summaryModeBadge" class="status-pill status-demo hidden" style="margin-bottom: 1.25rem;">
+          <span class="status-dot"></span> Simulated in Demo Mode
+        </div>
+
+        <!-- Registration ID Box -->
+        <div class="receipt-id-box">
+          <span class="receipt-id-label">Registration Reference Code</span>
+          <span id="summaryRegId" class="receipt-id-value">REG-2026-XXXXXX</span>
+        </div>
+
+        <!-- Summary Receipt Table -->
+        <div class="receipt-summary-table" role="table" aria-label="Registration Summary">
+          <div class="receipt-row" role="row">
+            <span class="receipt-key" role="rowheader">Timestamp:</span>
+            <span id="summaryTimestamp" class="receipt-val" role="cell">—</span>
+          </div>
+          <div class="receipt-row" role="row">
+            <span class="receipt-key" role="rowheader">Attendee Name:</span>
+            <span id="summaryName" class="receipt-val" role="cell">—</span>
+          </div>
+          <div class="receipt-row" role="row">
+            <span class="receipt-key" role="rowheader">Email Address:</span>
+            <span id="summaryEmail" class="receipt-val" role="cell">—</span>
+          </div>
+          <div class="receipt-row" role="row">
+            <span class="receipt-key" role="rowheader">Phone Number:</span>
+            <span id="summaryPhone" class="receipt-val" role="cell">—</span>
+          </div>
+          <div class="receipt-row" role="row">
+            <span class="receipt-key" role="rowheader">Department:</span>
+            <span id="summaryDepartment" class="receipt-val" role="cell">—</span>
+          </div>
+          <div class="receipt-row" role="row">
+            <span class="receipt-key" role="rowheader">Verification Status:</span>
+            <span class="receipt-val" role="cell" style="color: var(--success-600);">● Confirmed</span>
+          </div>
+        </div>
+
+        <!-- Actions -->
+        <div class="success-actions">
+          <button type="button" id="printReceiptBtn" class="btn-secondary">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <polyline points="6 9 6 2 18 2 18 9"></polyline>
+              <path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path>
+              <rect x="6" y="14" width="12" height="8"></rect>
+            </svg>
+            <span>Print Confirmation</span>
+          </button>
+
+          <button type="button" id="resetFormBtn" class="btn-primary-outline">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M12 5v14M5 12h14"></path>
+            </svg>
+            <span>Register Another Person</span>
+          </button>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- Highlights & Department Features Section -->
+    <section class="info-section" aria-labelledby="featuresTitle">
+      <div class="section-header">
+        <h2 id="featuresTitle" class="section-title">Built with Enterprise Integrity</h2>
+        <p class="section-subtitle">A modern registration architecture combining zero-cost cloud reliability with robust client security.</p>
+      </div>
+
+      <div class="feature-grid">
+        <article class="feature-card">
+          <div class="feature-icon-box" aria-hidden="true">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+              <polyline points="14 2 14 8 20 8"></polyline>
+              <line x1="16" y1="13" x2="8" y2="13"></line>
+              <line x1="16" y1="17" x2="8" y2="17"></line>
+              <polyline points="10 9 9 9 8 9"></polyline>
+            </svg>
+          </div>
+          <h3 class="feature-card-title">Google Sheets Datastore</h3>
+          <p class="feature-card-desc">No paid database dependencies. Submissions write directly to your private Google Sheet spreadsheet with automatic timestamping.</p>
+        </article>
+
+        <article class="feature-card">
+          <div class="feature-icon-box" aria-hidden="true">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+              <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+            </svg>
+          </div>
+          <h3 class="feature-card-title">Formula Injection Defense</h3>
+          <p class="feature-card-desc">Mitigates CWE-1236 spreadsheet injection. Values starting with <code>=</code>, <code>+</code>, <code>-</code>, or <code>@</code> are automatically escaped before being stored.</p>
+        </article>
+
+        <article class="feature-card">
+          <div class="feature-icon-box" aria-hidden="true">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+            </svg>
+          </div>
+          <h3 class="feature-card-title">Zero Public Read Surface</h3>
+          <p class="feature-card-desc">Visitors cannot read, browse, or tamper with existing registrations. The Apps Script backend exposes only a write-only append routine.</p>
+        </article>
+
+        <article class="feature-card">
+          <div class="feature-icon-box" aria-hidden="true">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="10"></circle>
+              <polyline points="12 6 12 12 16 14"></polyline>
+            </svg>
+          </div>
+          <h3 class="feature-card-title">LockService Concurrency</h3>
+          <p class="feature-card-desc">Prevents row overwrite collisions when hundreds of users submit simultaneously using Google Apps Script's atomic ScriptLock engine.</p>
+        </article>
+      </div>
+    </section>
+
+    <!-- Frequently Asked Questions Accordion -->
+    <section class="faq-section" aria-labelledby="faqTitle">
+      <div class="section-header">
+        <h2 id="faqTitle" class="section-title">Frequently Asked Questions</h2>
+        <p class="section-subtitle">Everything you need to know about this registration portal and Google Sheets integration.</p>
+      </div>
+
+      <div class="faq-list">
+        <div class="faq-item">
+          <button class="faq-question" type="button" aria-expanded="false">
+            <span>How does the website send data to Google Sheets without paid APIs?</span>
+            <svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <polyline points="6 9 12 15 18 9"></polyline>
+            </svg>
+          </button>
+          <div class="faq-answer hidden">
+            We use Google Apps Script deployed as a Web App (<code>/exec</code> endpoint). The client browser posts a lightweight JSON payload. Google Apps Script executes with the spreadsheet owner's authorization and appends the new record securely using <code>SpreadsheetApp</code>, requiring zero API subscriptions or paid gateways.
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question" type="button" aria-expanded="false">
+            <span>How does the system handle Google Apps Script CORS restrictions?</span>
+            <svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <polyline points="6 9 12 15 18 9"></polyline>
+            </svg>
+          </button>
+          <div class="faq-answer hidden">
+            Google Apps Script does not respond to HTTP <code>OPTIONS</code> preflight requests. Sending a standard <code>application/json</code> header triggers preflight, which causes modern browsers to abort. We send the payload with <code>Content-Type: text/plain;charset=utf-8</code> (which bypasses preflight). Google Apps Script processes the body and returns a 302 redirect to an echo endpoint containing <code>Access-Control-Allow-Origin: *</code>, allowing the browser to parse the verified confirmation response cleanly.
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question" type="button" aria-expanded="false">
+            <span>How does formula injection protection work?</span>
+            <svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <polyline points="6 9 12 15 18 9"></polyline>
+            </svg>
+          </button>
+          <div class="faq-answer hidden">
+            In spreadsheet software (Google Sheets, Excel), entering values starting with characters like <code>=</code>, <code>+</code>, <code>-</code>, or <code>@</code> can trigger formula execution (such as <code>=IMAGE()</code> or external data exfiltration via <code>=IMPORTXML()</code>). Our backend sanitizes all inputs by prefixing trigger characters with a single apostrophe (<code>'</code>), forcing Google Sheets to treat the data as literal text.
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question" type="button" aria-expanded="false">
+            <span>Why is a honeypot field included, and what are its limits?</span>
+            <svg class="faq-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <polyline points="6 9 12 15 18 9"></polyline>
+            </svg>
+          </button>
+          <div class="faq-answer hidden">
+            The honeypot is a hidden input field (named <code>website</code>) invisible to human visitors. Automated web scrapers and generic spam bots frequently fill in every input field they encounter. If this field contains any text upon submission, both the frontend and Google Apps Script immediately discard the submission. However, a honeypot alone does not stop sophisticated human-assisted bots or targeted spam; for high-traffic public campaigns, adding Google reCAPTCHA or Cloudflare Turnstile provides supplementary defense.
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Site Footer -->
+  <footer class="site-footer">
+    <div class="footer-content">
+      <div>
+        <p>&copy; 2026 NexusReg Innovation Forum. All rights reserved.</p>
+        <p style="font-size: 0.78rem; color: var(--slate-400); margin-top: 0.25rem;">
+          Powered by Vanilla HTML5, Modern CSS &amp; Google Apps Script. Zero proprietary vendor lock-in.
+        </p>
+      </div>
+      <div class="footer-links">
+        <a href="#hero">Portal Home</a>
+        <a href="#registrationForm">Register</a>
+        <a href="#featuresTitle">Security Features</a>
+        <a href="#faqTitle">FAQ</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Modal Configuration Drawer -->
+  <div id="configOverlay" class="modal-overlay hidden" aria-hidden="true"></div>
+  <div id="configModal" class="modal-container hidden" role="dialog" aria-modal="true" aria-labelledby="configModalTitle">
+    <div class="modal-header">
+      <h3 id="configModalTitle" class="modal-title">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <circle cx="12" cy="12" r="3"></circle>
+          <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+        </svg>
+        <span>Integration &amp; API Configuration</span>
+      </h3>
+      <button id="closeConfigBtn" class="btn-close-modal" type="button" aria-label="Close configuration modal">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="18" y1="6" x2="6" y2="18"></line>
+          <line x1="6" y1="6" x2="18" y2="18"></line>
+        </svg>
+      </button>
+    </div>
+
+    <div class="modal-body">
+      <!-- Quick instructions card -->
+      <div class="modal-help-card">
+        <strong>How to connect your Google Sheet:</strong>
+        <ol>
+          <li>Open your Google Sheet and select <strong>Extensions &gt; Apps Script</strong>.</li>
+          <li>Paste the code from <code>google-apps-script/Code.gs</code>.</li>
+          <li>Click <strong>Deploy &gt; New deployment &gt; Web app</strong>.</li>
+          <li>Set <em>Execute as:</em> <strong>Me</strong> and <em>Who has access:</em> <strong>Anyone</strong>.</li>
+          <li>Copy the resulting Web App URL ending in <code>/exec</code> and paste below.</li>
+        </ol>
+      </div>
+
+      <!-- Script URL Input -->
+      <div class="form-group">
+        <label for="configScriptUrl" class="form-label">
+          <span>Google Apps Script Web App URL (/exec)</span>
+        </label>
+        <input
+          type="url"
+          id="configScriptUrl"
+          class="form-input"
+          style="padding-left: 1rem;"
+          placeholder="https://script.google.com/macros/s/AKfycb.../exec"
+        >
+      </div>
+
+      <!-- Test Connection Button & Indicator -->
+      <div style="display: flex; flex-direction: column; gap: 0.5rem;">
+        <button type="button" id="testConnBtn" class="btn-secondary" style="height: 42px;">
+          <span>Test Endpoint Connection</span>
+        </button>
+        <div id="testConnStatus" class="test-conn-result hidden"></div>
+      </div>
+
+      <!-- Demo Mode Toggle -->
+      <div class="toggle-group">
+        <div class="toggle-info">
+          <h4>Interactive Demo Mode</h4>
+          <p>Simulates real-time submissions with artificial latency and verified receipts without needing an active Apps Script endpoint.</p>
+        </div>
+        <label class="switch">
+          <input type="checkbox" id="demoModeToggle">
+          <span class="slider"></span>
+        </label>
+      </div>
+    </div>
+
+    <div class="modal-footer">
+      <button type="button" id="saveConfigBtn" class="submit-btn" style="width: auto; padding: 0 1.5rem; height: 44px; margin: 0;">
+        Save Settings
+      </button>
+    </div>
+  </div>
+
+  <!-- JavaScript Modules in Dependency Order -->
+  <script src="js/config.js?v=3"></script>
+  <script src="js/validation.js?v=3"></script>
+  <script src="js/api.js?v=3"></script>
+  <script src="js/app.js?v=3"></script>
+</body>
+</html>
